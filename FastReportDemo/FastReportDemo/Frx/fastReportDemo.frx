@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="12/09/2019 22:59:21" ReportInfo.Modified="12/10/2019 13:13:41" ReportInfo.CreatorVersion="2020.1.2.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+        //实现Table显示多行数据
+    private void Table1_ManualBuild(object sender, EventArgs e)
+    {
+      DataSourceBase data1 = Report.GetDataSource(&quot;用户&quot;); // 获取DataSet中表名为(用户)的数据源
+      data1.Init(); // 初始化
+      Table1.PrintRow(0); // 控件Table1打印第0行
+      Table1.PrintColumns(); // 每打印一行，都要调用 PrintColumn或PrintColumns
+      int index=1;
+      while(data1.HasMoreRows) // 打印重复循环的行
+      {
+        Table1.PrintRow(1);
+        Table1.PrintColumns();
+        data1.Next(); // 读取下一行
+        index++;
+      }
+    }
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <TableDataSource Name="用户" ReferenceName="Data.用户" DataType="System.Int32" Enabled="true">
+      <Column Name="姓名" DataType="System.String" PropName="Column"/>
+      <Column Name="密码" DataType="System.String" PropName="Column"/>
+    </TableDataSource>
+    <TableDataSource Name="dic1" ReferenceName="Data.dic1" DataType="System.Int32" Enabled="true">
+      <Column Name="key1" DataType="System.String" PropName="Column"/>
+      <Column Name="key2" DataType="System.String" PropName="Column"/>
+    </TableDataSource>
+    <TableDataSource Name="User" ReferenceName="Data.User" DataType="System.Int32" Enabled="true">
+      <Column Name="Name" DataType="System.String" PropName="Column"/>
+      <Column Name="Pwd" DataType="System.Int32" PropName="Column"/>
+    </TableDataSource>
+  </Dictionary>
+  <ReportPage Name="Page1" Watermark.Font="宋体, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="37.8">
+      <TextObject Name="Text1" Left="274.05" Top="9.45" Width="94.5" Height="18.9" Text="用户" HorzAlign="Center" Font="宋体, 9pt"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="40.47" Width="718.2"/>
+    <DataBand Name="Data1" Top="43.13" Width="718.2" Height="122.85">
+      <TableObject Name="Table1" Left="189" Top="9.45" Width="283.44" Height="66.16" ManualBuildEvent="Table1_ManualBuild">
+        <TableColumn Name="Column1" Width="141.72"/>
+        <TableColumn Name="Column2" Width="141.72"/>
+        <TableRow Name="Row1" Height="33.08">
+          <TableCell Name="Cell1" Text="姓名" Font="宋体, 9pt"/>
+          <TableCell Name="Cell2" Text="密码" Font="宋体, 9pt"/>
+        </TableRow>
+        <TableRow Name="Row2" Height="33.08">
+          <TableCell Name="Cell6" Text="[Row#]、[用户.姓名]" Font="宋体, 9pt"/>
+          <TableCell Name="Cell7" Text="[用户.密码]" Font="宋体, 9pt"/>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="168.65" Width="718.2" Height="28.35">
+      <TextObject Name="Text2" Left="585.9" Width="94.5" Height="18.9" Text="[currentDate]" Font="宋体, 9pt"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>

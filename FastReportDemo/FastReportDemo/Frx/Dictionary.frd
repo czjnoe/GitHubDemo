@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dictionary>
+  <TableDataSource Name="用户" ReferenceName="Data.用户" DataType="System.Int32" Enabled="true">
+    <Column Name="姓名" DataType="System.String" PropName="Column"/>
+    <Column Name="密码" DataType="System.String" PropName="Column"/>
+  </TableDataSource>
+  <TableDataSource Name="User" ReferenceName="Data.User" DataType="System.Int32" Enabled="true" TableName="User">
+    <Column Name="Name" DataType="System.String" PropName="Column"/>
+    <Column Name="Pwd" DataType="System.Int32" PropName="Column"/>
+  </TableDataSource>
+</Dictionary>
