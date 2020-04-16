@@ -24,6 +24,8 @@ namespace IISControl
         private string ip = "";
         private string poolNmae = "";
         List<StationDetail> stationList = null;
+
+
         public FrmSatation(string _ip)
         {
             InitializeComponent();
