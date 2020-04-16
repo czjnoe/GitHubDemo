@@ -20,3 +20,10 @@ C:\C#\c#练习\IISControl\IISControl\obj\Debug\IISControl.csproj.GenerateResourc
 C:\C#\c#练习\GitHubDemo\IISControl\IISControl\bin\Debug\IISControl.exe.config
 C:\C#\c#练习\GitHubDemo\IISControl\IISControl\obj\Debug\IISControl.exe
 C:\C#\c#练习\GitHubDemo\IISControl\IISControl\obj\Debug\IISControl.pdb
+C:\C#\c#练习\GitHubDemo\IISControl\IISControl\bin\Debug\IISControl.exe
+C:\C#\c#练习\GitHubDemo\IISControl\IISControl\bin\Debug\IISControl.pdb
+C:\C#\c#练习\GitHubDemo\IISControl\IISControl\obj\Debug\IISControl.csprojResolveAssemblyReference.cache
+C:\C#\c#练习\GitHubDemo\IISControl\IISControl\obj\Debug\IISControl.FrmSatation.resources
+C:\C#\c#练习\GitHubDemo\IISControl\IISControl\obj\Debug\IISControl.FrmMain.resources
+C:\C#\c#练习\GitHubDemo\IISControl\IISControl\obj\Debug\IISControl.Properties.Resources.resources
+C:\C#\c#练习\GitHubDemo\IISControl\IISControl\obj\Debug\IISControl.csproj.GenerateResource.Cache
