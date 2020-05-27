@@ -14,6 +14,7 @@ namespace DapperDemo
     /// <summary>
     /// Dapper 轻量级ORM
     /// github:https://github.com/StackExchange/Dapper
+    /// 链接:https://www.cnblogs.com/yankliu-vip/p/4182892.html
     /// 入参类型：
     ///     1.匿名类,如：new {ID="1",NAME="1122"} 
     ///     2.实体类,如：new Student {ID="1",NAME="1122"} 
