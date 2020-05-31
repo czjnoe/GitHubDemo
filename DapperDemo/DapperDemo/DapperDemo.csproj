@@ -61,6 +61,7 @@
     <Compile Include="Dto\TimeDto.cs" />
     <Compile Include="Help\DapperFactory.cs" />
     <Compile Include="Help\Enums.cs" />
+    <Compile Include="Model\Course.cs" />
     <Compile Include="Model\Student.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

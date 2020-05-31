@@ -31,11 +31,11 @@ namespace DapperDemo
             //sql server
             {
                 Random rand = new Random();
-                using (IDbConnection db = DapperFactory.GetConnection(Enums.MyDbType.SqlServer,"Data Source=localhost;Initial Catalog=test;Integrated Security=True"))
+                using (IDbConnection db = DapperFactory.GetConnection(Enums.MyDbType.SqlServer, "Data Source=localhost;Initial Catalog=test;Integrated Security=True"))
                 {
                     int effectRows;
                     string id = rand.Next(1, 2000000000).ToString();
-                    Student stu = new Student { ID = id, NAME = "春夏之交", AGE=25, TIME = DateTime.Now };
+                    Student stu = new Student { ID = id, NAME = "春夏之交", AGE = 25, TIME = DateTime.Now };
                     //单个插入
                     {
                         effectRows = db.Execute("insert into Student(ID,NAME,TIME) values(@ID,@NAME,@TIME)", stu);
@@ -65,7 +65,7 @@ namespace DapperDemo
                     {
                         var stu1 = db.QuerySingleOrDefault<Student>("select * from Student where ID=@ID", new Student { ID = id });
                         stu1.NAME = "陈兆杰";
-                        
+
                         effectRows = db.Execute("UPDATE Student SET NAME=@NAME WHERE ID =@ID", stu1);
                     }
 
@@ -75,19 +75,85 @@ namespace DapperDemo
                         effectRows = db.Execute("DELETE FROM Student WHERE ID = @ID", dic);
                     }
 
+                    //事务
+                    {
+                        db.Open();
+                        var tran = db.BeginTransaction();
+                        try
+                        {
+                            Dictionary<string, object> dicParam = new Dictionary<string, object>();
+                            dicParam["ID"] = Guid.NewGuid().ToString();
+                            dicParam["NAME"] = "陈兆杰";
+                            dicParam["TIME"] = DateTime.Now;
+                            effectRows = db.Execute("insert into Student(ID,NAME,TIME) values(@ID,@NAME,@TIME)", dicParam, tran);
+
+                            tran.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            tran.Rollback();
+                        }
+                    }
+
+                    //多结果查询(Read表顺序，要与sql语句表的顺序一致，不然会有问题)
+                    {
+                        string sql = @"
+                            select * from Student where ID = @ID;
+                            select * from Course;";
+                        using (var multi = db.QueryMultiple(sql, new { id = "1" }))
+                        {
+                            var orders = multi.Read<Student>().ToList();
+                            var customer = multi.Read<Course>().FirstOrDefault();
+
+                        }
+                    }
 
                     //单个查询
                     {
-                        var stu4 = db.QuerySingle<Student>("select * from Student where ID=@ID", new { ID = "1" });//数据超过一条会报错，没有数据会报错
-                        var stu5 = db.QuerySingleOrDefault<Student>("select * from Student where ID=@ID", new { ID = "1" });//数据超过一条会报错,没有数据是默认为null
-                        var stu6 = db.QueryFirstOrDefault<Student>("select * from Student where ID=@ID", new { ID = "1" });//没有数据时默认为null
-                        var stu7 = db.QueryFirst<Student>("select * from Student where ID=@ID", new { ID = "1" });//没有数据会报错
-                        
+                        //var stu4 = db.QuerySingle<Student>("select * from Student where ID=@ID", new { ID = "1" });//数据超过一条会报错，没有数据会报错
+                        //var stu5 = db.QuerySingleOrDefault<Student>("select * from Student where ID=@ID", new { ID = "1" });//数据超过一条会报错,没有数据是默认为null
+                        //var stu6 = db.QueryFirstOrDefault<Student>("select * from Student where ID=@ID", new { ID = "1" });//没有数据时默认为null
+                        //var stu7 = db.QueryFirst<Student>("select * from Student where ID=@ID", new { ID = "1" });//没有数据会报错
+
                     }
-                    //多个查询
+                    var list = db.Query<Student>("SELECT * FROM Student").ToList();
+
+                    //多表查询
                     {
-                        var list = db.Query<Student>("SELECT * FROM Student").ToList();
+
+
+                        string sql = @"select s.*,c.ID,c.CourseName from Student s,Course c where s.ID =c.ID and s.ID=@ID";
+
+                        //方法1：
+                        var list2 = db.Query<Student, Course, StudentDto>(sql, (student, course) =>
+                       {
+                           StudentDto stuDto = new StudentDto();
+                           stuDto.NAME = student.NAME;
+                           stuDto.ID = student.ID;
+                           course.ID = student.ID;
+                           stuDto.Course = course;
+                           return stuDto;
+
+                       }, new { ID = "1786863176" }, splitOn: "ID,CourseName").ToList();
+
+                        //方法2：
+                        var dynamic = db.Query(sql, new { ID = "1786863176" }).ToList();
+
                     }
+
+                    //调用存储过程
+                    {
+                        var param = new DynamicParameters();
+                        param.Add("@StuId", "859713145");
+                        param.Add("@Name", dbType: DbType.String, direction: ParameterDirection.Output, size: 50);//输出值需要赋值size
+                        param.Add("@result", dbType: DbType.String, direction: ParameterDirection.ReturnValue, size: 50);//输出值需要赋值size
+
+                        db.Execute("TestProc", param, commandType: CommandType.StoredProcedure);
+                        string Name = param.Get<string>("Name");
+                        int? ReturnValue = param.Get<int>("@result");
+                    }
+
+
                 }
             }
         }
