@@ -116,7 +116,12 @@ namespace DapperDemo
                         //var stu7 = db.QueryFirst<Student>("select * from Student where ID=@ID", new { ID = "1" });//没有数据会报错
 
                     }
-                    var list = db.Query<Student>("SELECT * FROM Student").ToList();
+                   
+                    //多个查询
+                    {
+                        var list = db.Query<Student>("SELECT * FROM Student").ToList();
+                        list=db.Query<Student>("SELECT * FROM Student where ID in @IDS", new { IDS = new String[] { "1786863176", "1963140912" } }).ToList();
+                    }
 
                     //多表查询
                     {
