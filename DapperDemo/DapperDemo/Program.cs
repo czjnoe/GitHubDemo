@@ -8,6 +8,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using DapperExtensions;
 
 namespace DapperDemo
 {
@@ -22,11 +23,16 @@ namespace DapperDemo
     ///                 dic["ID"]="1";
     ///                 dic["NAME"]="1122";
     ///      
+    /// 
+    /// DapperExtensions：
+    /// 连接：https://codedefault.com/p/dapper-extensions-library-support-identity-fluent-mapping
+    /// https://www.cnblogs.com/xwc1996/p/9580771.html
     /// </summary>
     class Program
     {
         static void Main(string[] args)
         {
+            
             Dictionary<string, object> dic = new Dictionary<string, object>();
             //sql server
             {
@@ -116,11 +122,11 @@ namespace DapperDemo
                         //var stu7 = db.QueryFirst<Student>("select * from Student where ID=@ID", new { ID = "1" });//没有数据会报错
 
                     }
-                   
+
                     //多个查询
                     {
                         var list = db.Query<Student>("SELECT * FROM Student").ToList();
-                        list=db.Query<Student>("SELECT * FROM Student where ID in @IDS", new { IDS = new String[] { "1786863176", "1963140912" } }).ToList();
+                        list = db.Query<Student>("SELECT * FROM Student where ID in @IDS", new { IDS = new String[] { "1786863176", "1963140912" } }).ToList();
                     }
 
                     //多表查询
@@ -159,6 +165,78 @@ namespace DapperDemo
                     }
 
 
+                }
+            }
+
+            //DapperExtensions.dll
+            {
+                Random rand = new Random();
+                using (IDbConnection db = DapperFactory.GetConnection(Enums.MyDbType.SqlServer, "Data Source=localhost;Initial Catalog=test;Integrated Security=True"))
+                {
+                    string id = rand.Next(1, 2000000000).ToString();
+                    Student stu = new Student { ID = id, NAME = "陈兆杰", AGE = 25, TIME = DateTime.Now };
+                    //Insert
+                    {
+                        var effectRows = db.Insert(stu);//返回主键值
+                    }
+
+                    //Update
+                    {
+                        stu.TIME = DateTime.Now;
+                        if (db.Update(stu))
+                        {
+                            //成功
+                        }
+                        else
+                        {
+                            //失败
+                        }
+                    }
+
+                    //删除
+                    {
+                        //方法一
+                        {
+                            //if (db.Delete(stu))
+                            //{
+                            //    //成功
+                            //}
+                            //else
+                            //{
+                            //    //失败
+                            //}
+                        }
+
+                        //方法二
+                        {
+                            var filedPred = Predicates.Field<Student>(o => o.ID, Operator.Eq, stu.ID);
+                            if (db.Delete<Student>(filedPred))
+                            {
+                                //成功
+                            }
+                            else
+                            {
+                                //失败
+                            }
+                        }
+
+                        //查询list
+                        {
+                            IList<ISort> sortlist = new List<ISort>();
+                            sortlist.Add(new Sort { PropertyName = "ID", Ascending = false });//排序条件 降序
+
+                            IList<IPredicate> preList = new List<IPredicate>();
+                            preList.Add(Predicates.Field<Student>(o => o.ID, Operator.Eq, "1786863176"));//搜索条件，Operator有很多种的类型如eq是等于、like相当于是sql的like用法还有Lt、Le等
+
+                            BetweenValues betweenValues = new BetweenValues();//搜索条件，between搜索两个值之间的数据
+                            betweenValues.Value1 = "1786863176";
+                            betweenValues.Value2 = "9786863176";
+                            preList.Add(Predicates.Between<Student>(o => o.ID, betweenValues));
+
+                            IPredicateGroup predGroup = Predicates.Group(GroupOperator.And, preList.ToArray());//确认多个搜索条件的连接方式AND 或者 OR
+                            var list = db.GetList<Student>(predGroup, sortlist).ToList();
+                        }
+                    }
                 }
             }
         }
