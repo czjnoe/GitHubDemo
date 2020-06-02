@@ -2,6 +2,7 @@
 using RestSharp.Authenticators;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -80,6 +81,51 @@ namespace RestSharpDemo
                 var response = client.Execute<dynamic>(request);
                 var retStu = Newtonsoft.Json.JsonConvert.DeserializeObject<Student>(response.Data);
             }
+
+            //上传文件
+            {
+                var client = new RestClient("https://localhost:44370/api/File/UploadFiles");
+                var request = new RestRequest(Method.POST);
+                var imagePath = AppDomain.CurrentDomain.BaseDirectory + @"File\image.jpg";
+                request.AddFile("image", imagePath);
+
+                var response = client.Execute(request);
+                var content = response.Content;
+            }
+            {
+                var client = new RestClient("https://localhost:44370/api/File/DownloadFile");
+                var request = new RestRequest(Method.GET);
+
+                string tempFile = Path.GetTempFileName();
+                var writer = File.OpenWrite(tempFile);
+                request.ResponseWriter = responseStream =>
+                {
+                    using (responseStream)
+                    {
+                        responseStream.CopyTo(writer);
+                    }
+                };
+
+                byte[] bytes = client.DownloadData(request);
+
+                //var imagePath = AppDomain.CurrentDomain.BaseDirectory + $@"File\{Guid.NewGuid().ToString()}.jpg";
+
+                //using (var writer = File.OpenWrite(imagePath))
+                //{
+                //    var req = new RestRequest("https://localhost:44370/api/File/DownloadFile", Method.GET);
+                //    req.ResponseWriter = responseStream =>
+                //    {
+                //        using (responseStream)
+                //        {
+                //            responseStream.CopyTo(writer);
+                //        }
+                //    };
+                //    var response = client.DownloadData(req);
+                //}
+
+
+            }
+
         }
     }
 }

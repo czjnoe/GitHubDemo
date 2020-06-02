@@ -1,4 +1,5 @@
 ﻿using EasyHttp.Http;
+using EasyHttp.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,8 +86,34 @@ namespace EasyHttpDemo
                 var responseValue = response.DynamicBody;
                 Student retStu = Newtonsoft.Json.JsonConvert.DeserializeObject<Student>(responseValue);
             }
+
+            //上传文件
+            {
+                string uri = "https://localhost:44370/api/File/UploadFiles";
+                var http = new HttpClient();
+
+                var imagePath = AppDomain.CurrentDomain.BaseDirectory + @"File\image.jpg";
+
+                List<FileData> list = new List<FileData>();
+                FileData file = new FileData
+                {
+                    FieldName = "image.jpg",
+                    Filename = imagePath
+                };
+                list.Add(file);
+                var response = http.Post(uri, null, list);
+                var value = response.RawText;
+            }
+            //下载文件
+            {
+                string uri = "https://localhost:44370/api/File/DownloadFile";
+                var http = new HttpClient();
+
+                var imagePath = AppDomain.CurrentDomain.BaseDirectory + $@"File\{Guid.NewGuid().ToString()}.jpg";
+                var response = http.GetAsFile(uri, imagePath);
+            }
         }
 
-        
+
     }
 }
