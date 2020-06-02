@@ -92,6 +92,7 @@ namespace RestSharpDemo
                 var response = client.Execute(request);
                 var content = response.Content;
             }
+            //下载文件
             {
                 var client = new RestClient("https://localhost:44370/api/File/DownloadFile");
                 var request = new RestRequest(Method.GET);
@@ -105,25 +106,7 @@ namespace RestSharpDemo
                         responseStream.CopyTo(writer);
                     }
                 };
-
                 byte[] bytes = client.DownloadData(request);
-
-                //var imagePath = AppDomain.CurrentDomain.BaseDirectory + $@"File\{Guid.NewGuid().ToString()}.jpg";
-
-                //using (var writer = File.OpenWrite(imagePath))
-                //{
-                //    var req = new RestRequest("https://localhost:44370/api/File/DownloadFile", Method.GET);
-                //    req.ResponseWriter = responseStream =>
-                //    {
-                //        using (responseStream)
-                //        {
-                //            responseStream.CopyTo(writer);
-                //        }
-                //    };
-                //    var response = client.DownloadData(req);
-                //}
-
-
             }
 
         }
