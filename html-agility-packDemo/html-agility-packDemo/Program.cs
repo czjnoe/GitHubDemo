@@ -7,7 +7,7 @@ using System.Text;
 namespace html_agility_packDemo
 {
     /// <summary>
-    /// html_agility_pack:  网络爬虫利器, 解析Html
+    /// html_agility_pack:  网络爬虫利器, 解析Html,支持net4.0++
     /// github:https://github.com/zzzprojects/html-agility-pack
     /// 官方文档：https://html-agility-pack.net/documentation
     /// </summary>
