@@ -17,7 +17,7 @@ namespace NSoupDemo
         {
             WebClient client = new WebClient();
             client.Encoding = System.Text.Encoding.UTF8;
-            var html = client.DownloadString("https://www.baidu.com/");
+            var html = client.DownloadString("https://blog.csdn.net/czjnoe/article/details/106600070");
 
             NSoup.Nodes.Document doc = NSoup.NSoupClient.Parse(html);
             //根据标签名获取节点
