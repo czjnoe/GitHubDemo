@@ -33,6 +33,7 @@ namespace DapperDemo
     {
         static void Main(string[] args)
         {
+            
             Dictionary<string, object> dic = new Dictionary<string, object>();
             //sql server
             {
@@ -288,5 +289,4 @@ namespace DapperDemo
             }
         }
     }
-
 }
