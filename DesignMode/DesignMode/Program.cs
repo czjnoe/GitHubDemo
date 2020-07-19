@@ -14,6 +14,8 @@ namespace DesignMode
         static void Main(string[] args)
         {
             #region 原型模式 https://www.cnblogs.com/weihanli/p/prototype-pattern.html
+
+            //在需要频繁的复制创建一个新的对象对象的场景下，都可以考虑使用原型模式来创建新的对象
             var resume = new SimpleResume();
             resume.SetPersonalInfo("小明", "xiaoming@abc.xyz");
             resume.SetWorkExperience("xxx公司", "1990~2000");
