@@ -5,9 +5,9 @@ using System.Text;
 
 namespace ClrProfiler
 {
-   public class Student
+    public class Student
     {
-        //public string ID { get; set; }
+        public int ID { get; set; }
         public string NAME { get; set; }
     }
 }

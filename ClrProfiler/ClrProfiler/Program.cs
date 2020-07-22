@@ -1,5 +1,10 @@
-﻿using System;
+﻿using ClrProfiler.Help;
+using Dapper;
+using DapperExtensions;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -24,46 +29,55 @@ namespace ClrProfiler
             //}
             //Console.WriteLine("Program ran for {0} seconds",
             //    0.001 * (Environment.TickCount - start));
-
-            string s = "ddd";
-            s += "Outer index = ";
-            //s += " Inner index = ";
+            //string s = "ddd";
             //for (int j = 0; j < 100; j++)
             //{
             //    s += "Outer index = ";
             //    s += " Inner index = ";
-            //    s += j;
+            //    s += j.ToString();
             //    s += " ";
             //}
 
-            //string s = "ggg";
-            //s = "dsdsd";
+            //StringBuilder sb = new StringBuilder("ddd");
+            //for (int j = 0; j < 100; j++)
+            //{
+            //    sb .Append( "Outer index = ");
+            //    sb.Append(" Inner index = ");
+            //    sb.Append(j.ToString());
+            //    sb.Append(" ");
+            //}
+
+            //string s = "ggg".ToUpper();
             //string s1 = ("ggg");
             //s1 = ("gfg544");
 
-            //Student stu = new Student  { NAME = string.Intern("ggg") };
-            //Student stu1 = new Student { NAME = string.Intern("ggg") };
-            //Student stu2 = new Student { NAME = string.Intern("ggg") };
-            //Student stu3 = new Student { NAME = string.Intern("ggg") };
-            //Student stu4 = new Student { NAME = string.Intern("ggg") };
-            //List<Student> trades = new List<Student>();
-            //trades.Add(stu);
-            //trades.Add(stu1);
-            //trades.Add(stu2);
-            //trades.Add(stu3);
-            //trades.Add(stu4);
-            //List<string> nameList = new List<string>();
-            //nameList.Add("ccc");
-            //nameList.Add("bbb");
-            //nameList.Add("ddd");
-            //nameList.Add("fff");
-            //nameList.Add("ggg");
-            //Random rand = new Random();
-            //var trades = Enumerable.Range(0, 1000).Select(m => new Student()
+            //var Students = Enumerable.Range(0, 20 * 10000).Select(m => new Student()
             //{
-            //    NAME =("aaa")
+            //    ID = m,
+            //    NAME = string.Intern(File.ReadLines(Environment.CurrentDirectory + "//TextFile1.txt")
+            //                    .ElementAt(m % 4))
             //}).ToList();
-            //GC.Collect();
+
+            List<string> nameList = new List<string>() { "WAP", "TAOBAO", "ETAO", "TMALL" };
+            using (IDbConnection db = DapperFactory.GetConnection(Enums.MyDbType.Oracle, @"User ID=czj;Password=123456;Data Source=(DESCRIPTION = (ADDRESS_LIST= (ADDRESS = (PROTOCOL = TCP)(HOST = 127.0.0.1)(PORT = 1521))) (CONNECT_DATA = (SERVICE_NAME = orcl)))"))
+            {
+                var list = db.Query<Student>("SELECT * FROM Student").ToList();
+                var wList=list.Where(w => w.ID < 1000);
+                var sList = list.Select(s => new Student { ID = s.ID, NAME = s.NAME }).ToList();
+
+                //var stuList = Enumerable.Range(0, 20 * 10000).Select(i => new Student()
+                //{
+                //    ID = i,
+                //    NAME = (nameList.ElementAt(i % 4))
+                //}).ToList();
+                //var result = db.Execute("insert into Student(ID,NAME) values(:ID,:NAME)", stuList);
+            }
+
+            //string str = "22222222";
+            string str = string.Format("{0}", "22222222");
+
+            GC.Collect();
+            Console.WriteLine("执行成功");
             Console.ReadLine();
         }
     }
