@@ -73,8 +73,9 @@ namespace ClrProfiler
                 //var result = db.Execute("insert into Student(ID,NAME) values(:ID,:NAME)", stuList);
             }
 
-            //string str = "22222222";
-            string str = string.Format("{0}", "22222222");
+            string s1 = "22222222";
+            string str = string.Format("{0}", s1);
+            
 
             GC.Collect();
             Console.WriteLine("执行成功");
