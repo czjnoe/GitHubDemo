@@ -47,16 +47,17 @@ namespace ClrProfiler
             //    sb.Append(" ");
             //}
 
-            //string s = "ggg".ToUpper();
+            //string s = "ggg";
             //string s1 = ("ggg");
             //s1 = ("gfg544");
 
-            var Students = Enumerable.Range(0, 20 * 10000).Select(m => new Student()
-            {
-                ID = m,
-                NAME = string.Intern(File.ReadLines(Environment.CurrentDirectory + "//TextFile1.txt")
-                                .ElementAt(m % 4))
-            }).ToList();
+            //var Students = Enumerable.Range(0, 20 * 10000).Select(m => new Student()
+            //{
+            //    ID = m,
+            //    NAME = string.Intern(File.ReadLines(Environment.CurrentDirectory + "//TextFile1.txt")
+            //                    .ElementAt(m % 4))
+            //}).ToList();
+
 
             //List<string> nameList = new List<string>() { "WAP", "TAOBAO", "ETAO", "TMALL" };
             //using (IDbConnection db = DapperFactory.GetConnection(Enums.MyDbType.Oracle, @"User ID=czj;Password=123456;Data Source=(DESCRIPTION = (ADDRESS_LIST= (ADDRESS = (PROTOCOL = TCP)(HOST = 127.0.0.1)(PORT = 1521))) (CONNECT_DATA = (SERVICE_NAME = orcl)))"))
@@ -77,6 +78,23 @@ namespace ClrProfiler
             //string s1 = "22222222";
             //string str = string.Format("{0}", s1);
 
+            //for (int i = 0; i < 100; i++)
+            //{
+            //    //if (nameList.Contains("tmall", new CustomEqComparer()))
+            //    //{
+
+            //    //}
+            //    foreach (var name in nameList)
+            //    {
+            //        if (name.Compare("tmall"))
+            //        {
+
+            //        }
+            //    }
+            //}
+
+            string str = "dsdsd"+"dsdsdsffg"+"jkjjhjh";
+            //string str = string.Format("{0}{1}{2}", "dsdsd", "dsdsdsffg", "jkjjhjh");
 
             GC.Collect();
             //Console.WriteLine("执行成功");
