@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Confluent.KafkaClient", "Confluent.KafkaDemo\Confluent.KafkaClient.csproj", "{DAEBA850-7D01-4381-ADA5-AD178F791273}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Confluent.KafkaServer", "Confluent.KafkaServer\Confluent.KafkaServer.csproj", "{3DE08339-E33B-48D4-9BB4-F7610AD6753F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DAEBA850-7D01-4381-ADA5-AD178F791273}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAEBA850-7D01-4381-ADA5-AD178F791273}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAEBA850-7D01-4381-ADA5-AD178F791273}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAEBA850-7D01-4381-ADA5-AD178F791273}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DE08339-E33B-48D4-9BB4-F7610AD6753F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DE08339-E33B-48D4-9BB4-F7610AD6753F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DE08339-E33B-48D4-9BB4-F7610AD6753F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DE08339-E33B-48D4-9BB4-F7610AD6753F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
