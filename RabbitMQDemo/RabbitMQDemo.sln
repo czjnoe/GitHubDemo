@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQClient", "RabbitMQC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQServer", "RabbitMQServer\RabbitMQServer.csproj", "{105A1CC2-2E61-4C1F-9080-4622E3339C3C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyNetQDemo", "EasyNetQDemo\EasyNetQDemo.csproj", "{F2B466DA-D9B1-45A1-ADE6-4B37D5266388}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{105A1CC2-2E61-4C1F-9080-4622E3339C3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{105A1CC2-2E61-4C1F-9080-4622E3339C3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{105A1CC2-2E61-4C1F-9080-4622E3339C3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2B466DA-D9B1-45A1-ADE6-4B37D5266388}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2B466DA-D9B1-45A1-ADE6-4B37D5266388}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2B466DA-D9B1-45A1-ADE6-4B37D5266388}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2B466DA-D9B1-45A1-ADE6-4B37D5266388}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
