@@ -26,6 +26,8 @@ namespace RabbitMQServer
             {
                 using (var channel = connection.CreateModel())
                 {
+                    ///同一时间给一个工作者发送1个的消息，或者换句话说。在一个工作者还在处理消息，并且没有响应消息之前，不要给他分发新的消息。相反，将这条新的消息发送给下一个不那么忙碌的工作者。
+                    channel.BasicQos(0, 1, false);
                     channel.QueueDeclare(queueName, durable, false, false, null);
 
                     var consumer = new EventingBasicConsumer(channel);

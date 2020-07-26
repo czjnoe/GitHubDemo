@@ -10,8 +10,10 @@ namespace RabbitMQClient
     /// <summary>
     /// RabbitMQ
     /// 消息队列 生产者
+    /// Exchange 交换机概念
     /// 使用RabbitMQ.Client类库
     /// GitHub:https://github.com/rabbitmq/rabbitmq-dotnet-client
+    /// https://www.cnblogs.com/stulzq/p/7551819.html
     /// </summary>
     class Program
     {
