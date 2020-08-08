@@ -15,7 +15,7 @@ namespace AutoPulishWebOrDb
         }
         public abstract bool CreateDb(string dbName, string dbPath);
         public abstract bool IsExistDb(string dbName);
-        public abstract bool RestoreDb(string dbName, string dbPath);
+        public abstract bool RestoreDb(string dbName, string dbPath, string savePath);
         public abstract bool TestConnection();
 
         public abstract bool CreateUser(string userName, string passWord,string dbName);

@@ -67,6 +67,10 @@
             this.rbtOracle = new Sunny.UI.UIRadioButton();
             this.rbtSqlServer = new Sunny.UI.UIRadioButton();
             this.uiLabel1 = new Sunny.UI.UILabel();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.uiPanel4 = new Sunny.UI.UIPanel();
+            this.uiGroupBox1 = new Sunny.UI.UIGroupBox();
+            this.uiRichTextBox1 = new Sunny.UI.UIRichTextBox();
             this.uiPanel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -74,6 +78,9 @@
             this.uiPanel3.SuspendLayout();
             this.panelSqlserver.SuspendLayout();
             this.uiPanel2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.uiPanel4.SuspendLayout();
+            this.uiGroupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // uiPanel1
@@ -92,6 +99,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tabControl1.Font = new System.Drawing.Font("微软雅黑", 12F);
@@ -126,7 +134,7 @@
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Size = new System.Drawing.Size(800, 405);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "IIS部署";
+            this.tabPage1.Text = "IIS自动发布";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // rbtClassic
@@ -158,7 +166,7 @@
             // 
             this.uiLabel10.AutoSize = true;
             this.uiLabel10.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.uiLabel10.Location = new System.Drawing.Point(45, 276);
+            this.uiLabel10.Location = new System.Drawing.Point(40, 276);
             this.uiLabel10.Name = "uiLabel10";
             this.uiLabel10.Size = new System.Drawing.Size(97, 27);
             this.uiLabel10.TabIndex = 13;
@@ -169,7 +177,7 @@
             // 
             this.btnSiteUse.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSiteUse.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.btnSiteUse.Location = new System.Drawing.Point(549, 215);
+            this.btnSiteUse.Location = new System.Drawing.Point(549, 152);
             this.btnSiteUse.Name = "btnSiteUse";
             this.btnSiteUse.Size = new System.Drawing.Size(100, 35);
             this.btnSiteUse.TabIndex = 12;
@@ -181,7 +189,7 @@
             this.tbSiteName.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.tbSiteName.FillColor = System.Drawing.Color.White;
             this.tbSiteName.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.tbSiteName.Location = new System.Drawing.Point(187, 215);
+            this.tbSiteName.Location = new System.Drawing.Point(187, 153);
             this.tbSiteName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbSiteName.Maximum = 2147483647D;
             this.tbSiteName.Minimum = -2147483648D;
@@ -194,7 +202,7 @@
             // 
             this.uiLabel9.AutoSize = true;
             this.uiLabel9.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.uiLabel9.Location = new System.Drawing.Point(40, 215);
+            this.uiLabel9.Location = new System.Drawing.Point(40, 153);
             this.uiLabel9.Name = "uiLabel9";
             this.uiLabel9.Size = new System.Drawing.Size(77, 27);
             this.uiLabel9.TabIndex = 10;
@@ -205,7 +213,7 @@
             // 
             this.btnPoolNameUse.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPoolNameUse.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.btnPoolNameUse.Location = new System.Drawing.Point(549, 162);
+            this.btnPoolNameUse.Location = new System.Drawing.Point(549, 92);
             this.btnPoolNameUse.Name = "btnPoolNameUse";
             this.btnPoolNameUse.Size = new System.Drawing.Size(100, 35);
             this.btnPoolNameUse.TabIndex = 9;
@@ -216,7 +224,7 @@
             // 
             this.btnCheckPort.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCheckPort.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.btnCheckPort.Location = new System.Drawing.Point(549, 97);
+            this.btnCheckPort.Location = new System.Drawing.Point(549, 211);
             this.btnCheckPort.Name = "btnCheckPort";
             this.btnCheckPort.Size = new System.Drawing.Size(100, 35);
             this.btnCheckPort.TabIndex = 8;
@@ -227,7 +235,7 @@
             // 
             this.btnSiteOK.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSiteOK.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.btnSiteOK.Location = new System.Drawing.Point(313, 335);
+            this.btnSiteOK.Location = new System.Drawing.Point(332, 331);
             this.btnSiteOK.Name = "btnSiteOK";
             this.btnSiteOK.Size = new System.Drawing.Size(100, 35);
             this.btnSiteOK.TabIndex = 7;
@@ -239,7 +247,7 @@
             this.tbPoolName.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.tbPoolName.FillColor = System.Drawing.Color.White;
             this.tbPoolName.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.tbPoolName.Location = new System.Drawing.Point(187, 156);
+            this.tbPoolName.Location = new System.Drawing.Point(187, 94);
             this.tbPoolName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbPoolName.Maximum = 2147483647D;
             this.tbPoolName.Minimum = -2147483648D;
@@ -252,7 +260,7 @@
             // 
             this.uiLabel8.AutoSize = true;
             this.uiLabel8.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.uiLabel8.Location = new System.Drawing.Point(40, 162);
+            this.uiLabel8.Location = new System.Drawing.Point(40, 100);
             this.uiLabel8.Name = "uiLabel8";
             this.uiLabel8.Size = new System.Drawing.Size(137, 27);
             this.uiLabel8.TabIndex = 5;
@@ -263,7 +271,7 @@
             // 
             this.uiLabel7.AutoSize = true;
             this.uiLabel7.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.uiLabel7.Location = new System.Drawing.Point(40, 97);
+            this.uiLabel7.Location = new System.Drawing.Point(40, 210);
             this.uiLabel7.Name = "uiLabel7";
             this.uiLabel7.Size = new System.Drawing.Size(77, 27);
             this.uiLabel7.TabIndex = 4;
@@ -275,7 +283,7 @@
             this.tbPort.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.tbPort.FillColor = System.Drawing.Color.White;
             this.tbPort.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.tbPort.Location = new System.Drawing.Point(187, 99);
+            this.tbPort.Location = new System.Drawing.Point(187, 212);
             this.tbPort.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbPort.Maximum = 2147483647D;
             this.tbPort.Minimum = -2147483648D;
@@ -329,7 +337,7 @@
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Size = new System.Drawing.Size(800, 405);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "数据库部署";
+            this.tabPage2.Text = "数据库还原";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // uiPanel3
@@ -381,7 +389,7 @@
             // 
             this.btnSavePath.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSavePath.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.btnSavePath.Location = new System.Drawing.Point(606, 99);
+            this.btnSavePath.Location = new System.Drawing.Point(606, 86);
             this.btnSavePath.Name = "btnSavePath";
             this.btnSavePath.Size = new System.Drawing.Size(47, 35);
             this.btnSavePath.TabIndex = 19;
@@ -417,9 +425,9 @@
             // 
             this.btnTest.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnTest.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.btnTest.Location = new System.Drawing.Point(606, 201);
+            this.btnTest.Location = new System.Drawing.Point(606, 202);
             this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(100, 35);
+            this.btnTest.Size = new System.Drawing.Size(74, 28);
             this.btnTest.TabIndex = 16;
             this.btnTest.Text = "Test";
             this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
@@ -505,9 +513,9 @@
             this.uiLabel2.Font = new System.Drawing.Font("微软雅黑", 12F);
             this.uiLabel2.Location = new System.Drawing.Point(41, 30);
             this.uiLabel2.Name = "uiLabel2";
-            this.uiLabel2.Size = new System.Drawing.Size(57, 27);
+            this.uiLabel2.Size = new System.Drawing.Size(92, 27);
             this.uiLabel2.TabIndex = 8;
-            this.uiLabel2.Text = "路径:";
+            this.uiLabel2.Text = "bak路径:";
             this.uiLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // uiPanel2
@@ -579,6 +587,55 @@
             this.uiLabel1.Text = "数据库类型：";
             this.uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.uiPanel4);
+            this.tabPage3.Location = new System.Drawing.Point(0, 40);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(800, 405);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "关于";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // uiPanel4
+            // 
+            this.uiPanel4.Controls.Add(this.uiGroupBox1);
+            this.uiPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uiPanel4.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.uiPanel4.Location = new System.Drawing.Point(0, 0);
+            this.uiPanel4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiPanel4.Name = "uiPanel4";
+            this.uiPanel4.Size = new System.Drawing.Size(800, 405);
+            this.uiPanel4.TabIndex = 0;
+            this.uiPanel4.Text = null;
+            // 
+            // uiGroupBox1
+            // 
+            this.uiGroupBox1.Controls.Add(this.uiRichTextBox1);
+            this.uiGroupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uiGroupBox1.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.uiGroupBox1.Location = new System.Drawing.Point(0, 0);
+            this.uiGroupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiGroupBox1.Name = "uiGroupBox1";
+            this.uiGroupBox1.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
+            this.uiGroupBox1.Size = new System.Drawing.Size(800, 405);
+            this.uiGroupBox1.TabIndex = 0;
+            this.uiGroupBox1.Text = "说明";
+            // 
+            // uiRichTextBox1
+            // 
+            this.uiRichTextBox1.AutoWordSelection = true;
+            this.uiRichTextBox1.Enabled = false;
+            this.uiRichTextBox1.FillColor = System.Drawing.Color.White;
+            this.uiRichTextBox1.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.uiRichTextBox1.Location = new System.Drawing.Point(25, 37);
+            this.uiRichTextBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uiRichTextBox1.Name = "uiRichTextBox1";
+            this.uiRichTextBox1.Padding = new System.Windows.Forms.Padding(2);
+            this.uiRichTextBox1.Size = new System.Drawing.Size(750, 350);
+            this.uiRichTextBox1.TabIndex = 0;
+            this.uiRichTextBox1.Text = "只支持本地发布web站点和根据bak文件恢复sqlserver数据库";
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 27F);
@@ -588,7 +645,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmMain";
-            this.Text = "自动部署";
+            this.Text = "IIS自动部署";
             this.Load += new System.EventHandler(this.FrmMain_Load);
             this.uiPanel1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
@@ -600,6 +657,9 @@
             this.panelSqlserver.PerformLayout();
             this.uiPanel2.ResumeLayout(false);
             this.uiPanel2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.uiPanel4.ResumeLayout(false);
+            this.uiGroupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -645,6 +705,10 @@
         private Sunny.UI.UIRadioButton rbtClassic;
         private Sunny.UI.UIRadioButton rbtIntegrated;
         private Sunny.UI.UILabel uiLabel10;
+        private System.Windows.Forms.TabPage tabPage3;
+        private Sunny.UI.UIPanel uiPanel4;
+        private Sunny.UI.UIGroupBox uiGroupBox1;
+        private Sunny.UI.UIRichTextBox uiRichTextBox1;
     }
 }
 

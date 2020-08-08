@@ -159,7 +159,7 @@ namespace AutoPulishWebOrDb
                 return;
             }
 
-            if (!Directory.Exists(dbPath))
+            if (!Directory.Exists(savePath))
             {
                 this.ShowWarningDialog("保存目录不存在");
                 return;
@@ -167,11 +167,12 @@ namespace AutoPulishWebOrDb
 
             var dal = GetDal(this.tbConnString.Text);
             var dbNameIsExist = dal.IsExistDb(dbName);
-            if (!dbNameIsExist)
+            if (dbNameIsExist)
             {
-                dal.CreateDb(dbName, savePath);
+                this.ShowWarningDialog($"数据库:{dbName} 已存在");
+                return;
             }
-            dal.RestoreDb(dbName, dbPath);
+            dal.RestoreDb(dbName, dbPath, savePath);
             UIMessageTip.ShowOk("创建成功", 2000, true);
         }
 

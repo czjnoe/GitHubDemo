@@ -15,63 +15,112 @@ namespace AutoPulishWebOrDb.Dal
 
         //private string createDb = @"create database {0}";
 
-        private string createDb = @"use master
-go 
-begin
+        private string createDb = @"
     create database {0}
     on  primary        --表示属于 primary 文件组
     (
-        name='{1}'_data,        -- 主数据文件的逻辑名称
-        filename='{5}\'{2}'_data.mdf',    -- 主数据文件的物理名称
+        name='{1}_data',        -- 主数据文件的逻辑名称
+        filename='{5}\{2}.mdf',    -- 主数据文件的物理名称
         size=5mb,    --主数据文件的初始大小
-        maxsize=100mb,     -- 主数据文件增长的最大值
-        filegrowth=15%        --主数据文件的增长率
+        maxsize=1024mb,     -- 主数据文件增长的最大值
+        filegrowth=10%        --主数据文件的增长率
     )
     log on
     (
         name='{3}_log',        -- 日志文件的逻辑名称
         filename='{6}\{4}_log.ldf',    -- 日志文件的物理名称
         size=2mb,            --日志文件的初始大小
-        maxsize=20mb,        --日志文件增长的最大值
+        maxsize=200mb,        --日志文件增长的最大值
         filegrowth=1mb        --日志文件的增长率
-    )
-end";
+    )";
 
-        private string restoreSql = @"restore database {0} from disk='{1}' with REPLACE";
+        private string fullRestoreSql = @"RESTORE DATABASE {0}  
+   FROM disk='{1}' 
+   WITH NORECOVERY, FILE = {8},move '{2}' to '{3}\{4}.mdf',
+            move '{5}' to '{6}\{7}_log.ldf';
+";
+        private string diffRestoreSql = @"RESTORE DATABASE {0}  
+   FROM disk='{1}'   
+   WITH FILE = {2},  
+   RECOVERY; ";
+
+        private string bakDetailSql = @"restore headeronly from disk = '{0}'";
+
+        private string bakFileSql = " restore  filelistonly from disk = '{0}'";
 
         public SqlServerDal(string connString) : base(connString)
         {
         }
 
-        public override bool CreateDb(string dbName,string dbPath)
+        public override bool CreateDb(string dbName, string dbPath)
         {
-            using (var db = DapperFactory.GetConnection(MyDbType.SqlServer, this._connString))
+            try
             {
-                var result = db.Execute(createDb.ToFormat(dbName, dbName, dbName, dbName, dbName, dbPath, dbPath));
-                if (result > 0)
+                using (var db = DapperFactory.GetConnection(MyDbType.SqlServer, this._connString))
+                {
+                    var result = db.Execute(createDb.ToFormat(dbName, dbName, dbName, dbName, dbName, dbPath, dbPath));
                     return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
             return false;
         }
 
-        public override bool RestoreDb(string dbName, string dbPath)
+        public override bool RestoreDb(string dbName, string dbPath, string savePath)
         {
-            using (var db = DapperFactory.GetConnection(MyDbType.SqlServer, this._connString))
+            try
             {
-                var result = db.Execute(restoreSql.ToFormat(dbName, dbPath));
-                if (result > 0)
+                using (var db = DapperFactory.GetConnection(MyDbType.SqlServer, this._connString))
+                {
+                    var dynamic = db.Query<dynamic>(bakDetailSql.ToFormat(dbPath)).ToList();
+
+                    var full=dynamic.Where(w => (string)w.BackupTypeDescription == "Database").OrderByDescending(o => o.Position).ToList();
+                    if(full.Count()>0)
+                    {
+                        string fullPosition =Convert.ToString( full[0].Position);
+                        var dynamicFile = db.Query<dynamic>(bakFileSql.ToFormat(dbPath)).ToList();
+                        string mdfName = dynamicFile[0].LogicalName;
+                        string ldfName = dynamicFile[1].LogicalName;
+
+                        var result = db.Execute(fullRestoreSql.ToFormat
+                            (dbName, dbPath,
+                            mdfName, savePath, dbName, ldfName, savePath,
+                            dbName, fullPosition));
+                    }
+                    var diff = dynamic.Where(w => (string)w.BackupTypeDescription == "Database Differential").OrderByDescending(o => o.Position).ToList();
+                    if (diff.Count() > 0)
+                    {
+                      string diffPosition= Convert.ToString(diff[0].Position);
+                        var result1 = db.Execute(diffRestoreSql.ToFormat
+                       (dbName, dbPath, diffPosition));
+                    }
                     return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
             return false;
         }
 
         public override bool IsExistDb(string dbName)
         {
-            using (var db = DapperFactory.GetConnection(MyDbType.SqlServer, this._connString))
+            try
             {
-                var result = db.Execute(isExistDb.ToFormat(dbName));
-                if (result > 0)
-                    return true;
+                using (var db = DapperFactory.GetConnection(MyDbType.SqlServer, this._connString))
+                {
+                    var result = Convert.ToInt32(db.ExecuteScalar(isExistDb.ToFormat(dbName)));
+                    if (result > 0)
+                        return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
             return false;
         }

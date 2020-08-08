@@ -66,7 +66,7 @@ namespace AutoPulishWebOrDb.Dal
             return false;
         }
 
-        public override bool RestoreDb(string dbName, string dbPath)
+        public override bool RestoreDb(string dbName, string dbPath, string savePath)
         {
             throw new NotImplementedException();
         }
