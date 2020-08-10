@@ -13,7 +13,7 @@ namespace AutoPulishWebOrDb.Help
 {
     public class IISManagerHelp
     {
-        private ServerManager server = null;
+        private static ServerManager server = null;
         private string _ip = string.Empty;
         public IISManagerHelp(string ip = "localhost")
         {
@@ -64,7 +64,7 @@ namespace AutoPulishWebOrDb.Help
         /// <param name="port">端口号</param>
         /// <param name="mode">程序池托管模式 默认集成模式</param>
         /// <returns></returns>
-        public bool CreateWebSite(string siteName,string poolName, string physicalPath, int port, ManagedPipelineMode mode= ManagedPipelineMode.Integrated)
+        public bool CreateWebSite(string siteName,string poolName, string physicalPath, int port,Dictionary<string,string> mimeDic, ManagedPipelineMode mode= ManagedPipelineMode.Integrated)
         {
             try
             {
@@ -82,10 +82,48 @@ namespace AutoPulishWebOrDb.Help
                 server.Sites[siteName].Applications[0].ApplicationPoolName = poolName;
 
                 server.CommitChanges();
+                Configuration confg = server.GetWebConfiguration(siteName); //webSiteName站点名称
+                AddMIMEType(confg, mimeDic);
 
                 return true;
             }
             catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+
+        /// <summary>
+        /// 添加IIS mime类型
+        /// </summary>
+        /// <param name="mimeDic"></param>
+        /// <returns></returns>
+        private static bool AddMIMEType(Configuration confg, Dictionary<string, string> mimeDic)
+        {
+            try
+            {
+                ConfigurationSection section;
+                section = confg.GetSection("system.webServer/staticContent");     //取得MimeMap所有节点(路径为:%windir%\Windows\System32\inetsrv\config\applicationHost.config)
+
+                ConfigurationElement filesElement = section.GetCollection();
+                ConfigurationElementCollection filesCollection = filesElement.GetCollection();
+
+                
+                foreach (var key in mimeDic.Keys)
+                {
+                    ConfigurationElement newElement = filesCollection.CreateElement(); //新建MimeMap节点
+                    newElement.Attributes["fileExtension"].Value = key;
+                    newElement.Attributes["mimeType"].Value = mimeDic[key];
+                    if (!filesCollection.Contains(newElement))
+                    {
+                        filesCollection.Add(newElement);
+                    }
+                }
+                server.CommitChanges();//更改
+                return true;
+            }
+            catch (Exception)
             {
                 return false;
             }

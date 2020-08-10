@@ -257,55 +257,83 @@ namespace AutoPulishWebOrDb
 
         private void btnSiteOK_Click(object sender, EventArgs e)
         {
+            if (!this.iisManager.IsInstallIIS())
+            {
+                this.ShowWarningDialog("服务器尚未安装IIS服务模块");
+                return;
+            }
+            if (IISHelp.GetIISVersion() < 0)
+            {
+                this.ShowWarningDialog("没有安装 IIS 环境");
+                return;
+            }
             if (!NetFrameWorkHelp.IsExistNet40())
             {
                 this.ShowWarningDialog("没有 NET4.0 环境");
-            }
-            var siteName = this.tbSiteName.Text;
-            if (siteName.IsNullOrWhiteSpace())
-            {
-                UIMessageTip.ShowError("应用名为空", 1000, true);
-                return;
-            }
-            var poolName = this.tbPoolName.Text;
-            if (poolName.IsNullOrWhiteSpace())
-            {
-                UIMessageTip.ShowError("程序池名为空", 1000, true);
-                return;
-            }
-            var port = this.tbPort.Text;
-            if (port.IsNullOrWhiteSpace())
-            {
-                UIMessageTip.ShowError("端口号为空", 1000, true);
                 return;
             }
 
-            if (!port.IsNumeric())
+            Dictionary<string, string> mimeDic = new Dictionary<string, string>();
+            mimeDic.Add(".woff2", "application/x-font-woff");
+            mimeDic.Add(".woff", "application/x-font-woff");
+            //IISHelp.AddMIMEType(mimeDic);
+
+            var siteName = this.tbSiteName.Text;
+            if (siteName.IsNullOrWhiteSpace())
             {
-                UIMessageTip.ShowError("端口号只能为数字", 1000, true);
+                this.ShowWarningDialog("应用名为空");
                 return;
             }
+            if (iisManager.IsExistSiteName(siteName))
+            {
+                this.ShowWarningDialog($"应用名:{siteName} 已被使用");
+            }
+
+
+            var poolName = this.tbPoolName.Text;
+            if (poolName.IsNullOrWhiteSpace())
+            {
+                this.ShowWarningDialog("程序池名为空");
+                return;
+            }
+            if (iisManager.IsExistPoolName(poolName))
+            {
+                this.ShowWarningDialog($"名称:{poolName}已被使用");
+            }
+
+            var port = this.tbPort.Text;
+            if (port.IsNullOrWhiteSpace())
+            {
+                this.ShowWarningDialog("端口号为空");
+                return;
+            }
+            if (!port.IsNumeric())
+            {
+                this.ShowWarningDialog("端口号只能为数字");
+                return;
+            }
+            if (PortHelper.PortInUse(Convert.ToInt32(port)))
+            {
+                this.ShowWarningDialog($"{port}端口号已被占用");
+                return;
+            }
+
 
             var sitePath = this.tbSitePath.Text;
             if (sitePath.IsNullOrWhiteSpace())
             {
-                UIMessageTip.ShowError("应用路径不可为空", 1000, true);
+                this.ShowWarningDialog("应用路径不可为空");
                 return;
             }
-
             if (!Directory.Exists(sitePath))
             {
-                UIMessageTip.ShowError("应用路径不存在", 1000, true);
+                this.ShowWarningDialog("应用路径不存在");
                 return;
             }
 
-            if (!this.iisManager.IsInstallIIS())
-            {
-                UIMessageTip.ShowError("服务器尚未安装IIS服务模块", 1000, true);
-                return;
-            }
+           
 
-            var result=iisManager.CreateWebSite(siteName, poolName, sitePath, Convert.ToInt32(port), GetPoolMode());
+            var result=iisManager.CreateWebSite(siteName, poolName, sitePath, Convert.ToInt32(port), mimeDic, GetPoolMode());
             if (result)
             {
                 UIMessageTip.ShowOk("发布成功", 2000, true);

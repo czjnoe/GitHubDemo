@@ -101,6 +101,7 @@
     </Compile>
     <Compile Include="Help\DapperFactory.cs" />
     <Compile Include="Help\Enums.cs" />
+    <Compile Include="Help\IISHelp.cs" />
     <Compile Include="Help\IISManagerHelp.cs" />
     <Compile Include="Help\NetFrameWorkHelp.cs" />
     <Compile Include="Help\PortHelper.cs" />
@@ -143,6 +144,26 @@
     <EmbeddedResource Include="Costura\SQLite.Interop.dll" />
     <EmbeddedResource Include="Costura\SunnyUI.dll" />
     <EmbeddedResource Include="Costura\System.Data.SQLite.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="ActiveDs">
+      <Guid>{97D25DB0-0363-11CF-ABC4-02608C9E7553}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="IISOle">
+      <Guid>{49D704A0-89F7-11D0-8527-00C04FD8D503}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.4.0.2\build\Fody.targets" Condition="Exists('..\packages\Fody.4.0.2\build\Fody.targets')" />
