@@ -287,6 +287,7 @@ namespace AutoPulishWebOrDb
             if (iisManager.IsExistSiteName(siteName))
             {
                 this.ShowWarningDialog($"应用名:{siteName} 已被使用");
+                return;
             }
 
 
@@ -299,6 +300,7 @@ namespace AutoPulishWebOrDb
             if (iisManager.IsExistPoolName(poolName))
             {
                 this.ShowWarningDialog($"名称:{poolName}已被使用");
+                return;
             }
 
             var port = this.tbPort.Text;
