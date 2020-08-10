@@ -34,9 +34,12 @@ namespace AutoPulishWebOrDb.Dal
         filegrowth=1mb        --日志文件的增长率
     )";
 
+        private const string NORECOVERY = "NORECOVERY";
+        private const string RECOVERY = "RECOVERY";
+
         private string fullRestoreSql = @"RESTORE DATABASE {0}  
    FROM disk='{1}' 
-   WITH NORECOVERY, FILE = {8},move '{2}' to '{3}\{4}.mdf',
+   WITH {9}, FILE = {8},move '{2}' to '{3}\{4}.mdf',
             move '{5}' to '{6}\{7}_log.ldf';
 ";
         private string diffRestoreSql = @"RESTORE DATABASE {0}  
@@ -78,19 +81,30 @@ namespace AutoPulishWebOrDb.Dal
                     var dynamic = db.Query<dynamic>(bakDetailSql.ToFormat(dbPath)).ToList();
 
                     var full=dynamic.Where(w => (string)w.BackupTypeDescription == "Database").OrderByDescending(o => o.Position).ToList();
-                    if(full.Count()>0)
+                    var diff = dynamic.Where(w => (string)w.BackupTypeDescription == "Database Differential").OrderByDescending(o => o.Position).ToList();
+                    if (full.Count()>0)
                     {
                         string fullPosition =Convert.ToString( full[0].Position);
                         var dynamicFile = db.Query<dynamic>(bakFileSql.ToFormat(dbPath)).ToList();
                         string mdfName = dynamicFile[0].LogicalName;
                         string ldfName = dynamicFile[1].LogicalName;
 
-                        var result = db.Execute(fullRestoreSql.ToFormat
+                        if (diff.Count() > 0)
+                        {
+                            var result = db.Execute(fullRestoreSql.ToFormat
                             (dbName, dbPath,
-                            mdfName, savePath, dbName, ldfName, savePath,
-                            dbName, fullPosition));
+                                mdfName, savePath, dbName, ldfName, savePath,
+                                dbName, fullPosition,NORECOVERY));
+                        }
+                        else
+                        {
+                            var result = db.Execute(fullRestoreSql.ToFormat
+                            (dbName, dbPath,
+                                mdfName, savePath, dbName, ldfName, savePath,
+                                dbName, fullPosition, RECOVERY));
+                        }
                     }
-                    var diff = dynamic.Where(w => (string)w.BackupTypeDescription == "Database Differential").OrderByDescending(o => o.Position).ToList();
+                   
                     if (diff.Count() > 0)
                     {
                       string diffPosition= Convert.ToString(diff[0].Position);
