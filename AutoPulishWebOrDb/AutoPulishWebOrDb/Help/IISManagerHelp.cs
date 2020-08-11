@@ -82,7 +82,7 @@ namespace AutoPulishWebOrDb.Help
                 server.Sites[siteName].Applications[0].ApplicationPoolName = poolName;
 
                 server.CommitChanges();
-                Configuration confg = server.GetWebConfiguration(siteName); //webSiteName站点名称
+                Microsoft.Web.Administration.Configuration confg = server.GetWebConfiguration(siteName); //webSiteName站点名称
                 AddMIMEType(confg, mimeDic);
 
                 return true;
@@ -99,20 +99,20 @@ namespace AutoPulishWebOrDb.Help
         /// </summary>
         /// <param name="mimeDic"></param>
         /// <returns></returns>
-        private static bool AddMIMEType(Configuration confg, Dictionary<string, string> mimeDic)
+        private static bool AddMIMEType(Microsoft.Web.Administration.Configuration confg, Dictionary<string, string> mimeDic)
         {
             try
             {
-                ConfigurationSection section;
+                Microsoft.Web.Administration.ConfigurationSection section;
                 section = confg.GetSection("system.webServer/staticContent");     //取得MimeMap所有节点(路径为:%windir%\Windows\System32\inetsrv\config\applicationHost.config)
 
-                ConfigurationElement filesElement = section.GetCollection();
-                ConfigurationElementCollection filesCollection = filesElement.GetCollection();
+                Microsoft.Web.Administration.ConfigurationElement filesElement = section.GetCollection();
+                Microsoft.Web.Administration.ConfigurationElementCollection filesCollection = filesElement.GetCollection();
 
                 
                 foreach (var key in mimeDic.Keys)
                 {
-                    ConfigurationElement newElement = filesCollection.CreateElement(); //新建MimeMap节点
+                    Microsoft.Web.Administration.ConfigurationElement newElement = filesCollection.CreateElement(); //新建MimeMap节点
                     newElement.Attributes["fileExtension"].Value = key;
                     newElement.Attributes["mimeType"].Value = mimeDic[key];
                     if (!filesCollection.Contains(newElement))

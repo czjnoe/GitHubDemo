@@ -73,6 +73,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite, Version=1.0.112.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -93,12 +94,19 @@
     <Compile Include="BaseDal.cs" />
     <Compile Include="Dal\OracleDal.cs" />
     <Compile Include="Dal\SqlServerDal.cs" />
+    <Compile Include="FrmDataGridView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmDataGridView.Designer.cs">
+      <DependentUpon>FrmDataGridView.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Help\ConfigUtil.cs" />
     <Compile Include="Help\DapperFactory.cs" />
     <Compile Include="Help\Enums.cs" />
     <Compile Include="Help\IISHelp.cs" />
@@ -107,8 +115,12 @@
     <Compile Include="Help\PortHelper.cs" />
     <Compile Include="Help\StringExtension.cs" />
     <Compile Include="Interface\IDbDal.cs" />
+    <Compile Include="Model\Config.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmDataGridView.resx">
+      <DependentUpon>FrmDataGridView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>

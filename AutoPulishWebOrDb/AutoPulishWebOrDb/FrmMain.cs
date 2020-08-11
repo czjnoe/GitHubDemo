@@ -367,5 +367,30 @@ namespace AutoPulishWebOrDb
                 this.tbSitePath.Text = dialog.SelectedPath;
             }
         }
+
+        private void btnConfig_Click(object sender, EventArgs e)
+        {
+            var sitePath = this.tbSitePath.Text;
+            if (sitePath.IsNullOrWhiteSpace())
+            {
+                this.ShowWarningDialog("应用路径不可为空");
+                return;
+            }
+            if (!Directory.Exists(sitePath))
+            {
+                this.ShowWarningDialog("应用路径不存在");
+                return;
+            }
+
+           var configPath= Path.Combine(sitePath, "Web.config");
+            if (!File.Exists(configPath))
+            {
+                this.ShowWarningDialog("Web.config配置文件不存在");
+                return;
+            }
+
+            FrmDataGridView view = new FrmDataGridView(configPath);
+            view.ShowDialog();
+        }
     }
 }

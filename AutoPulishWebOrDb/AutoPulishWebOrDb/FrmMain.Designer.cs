@@ -31,6 +31,7 @@
             this.uiPanel1 = new Sunny.UI.UIPanel();
             this.tabControl1 = new Sunny.UI.UITabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnConfig = new Sunny.UI.UIButton();
             this.rbtClassic = new Sunny.UI.UIRadioButton();
             this.rbtIntegrated = new Sunny.UI.UIRadioButton();
             this.uiLabel10 = new Sunny.UI.UILabel();
@@ -114,6 +115,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btnConfig);
             this.tabPage1.Controls.Add(this.rbtClassic);
             this.tabPage1.Controls.Add(this.rbtIntegrated);
             this.tabPage1.Controls.Add(this.uiLabel10);
@@ -136,6 +138,17 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "IIS自动发布";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btnConfig
+            // 
+            this.btnConfig.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnConfig.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.btnConfig.Location = new System.Drawing.Point(623, 33);
+            this.btnConfig.Name = "btnConfig";
+            this.btnConfig.Size = new System.Drawing.Size(164, 35);
+            this.btnConfig.TabIndex = 16;
+            this.btnConfig.Text = "配置文件编辑";
+            this.btnConfig.Click += new System.EventHandler(this.btnConfig_Click);
             // 
             // rbtClassic
             // 
@@ -177,7 +190,7 @@
             // 
             this.btnSiteUse.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSiteUse.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.btnSiteUse.Location = new System.Drawing.Point(549, 152);
+            this.btnSiteUse.Location = new System.Drawing.Point(539, 152);
             this.btnSiteUse.Name = "btnSiteUse";
             this.btnSiteUse.Size = new System.Drawing.Size(100, 35);
             this.btnSiteUse.TabIndex = 12;
@@ -189,7 +202,7 @@
             this.tbSiteName.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.tbSiteName.FillColor = System.Drawing.Color.White;
             this.tbSiteName.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.tbSiteName.Location = new System.Drawing.Point(187, 153);
+            this.tbSiteName.Location = new System.Drawing.Point(177, 153);
             this.tbSiteName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbSiteName.Maximum = 2147483647D;
             this.tbSiteName.Minimum = -2147483648D;
@@ -213,7 +226,7 @@
             // 
             this.btnPoolNameUse.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPoolNameUse.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.btnPoolNameUse.Location = new System.Drawing.Point(549, 92);
+            this.btnPoolNameUse.Location = new System.Drawing.Point(539, 92);
             this.btnPoolNameUse.Name = "btnPoolNameUse";
             this.btnPoolNameUse.Size = new System.Drawing.Size(100, 35);
             this.btnPoolNameUse.TabIndex = 9;
@@ -224,7 +237,7 @@
             // 
             this.btnCheckPort.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCheckPort.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.btnCheckPort.Location = new System.Drawing.Point(549, 211);
+            this.btnCheckPort.Location = new System.Drawing.Point(539, 211);
             this.btnCheckPort.Name = "btnCheckPort";
             this.btnCheckPort.Size = new System.Drawing.Size(100, 35);
             this.btnCheckPort.TabIndex = 8;
@@ -247,7 +260,7 @@
             this.tbPoolName.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.tbPoolName.FillColor = System.Drawing.Color.White;
             this.tbPoolName.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.tbPoolName.Location = new System.Drawing.Point(187, 94);
+            this.tbPoolName.Location = new System.Drawing.Point(177, 94);
             this.tbPoolName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbPoolName.Maximum = 2147483647D;
             this.tbPoolName.Minimum = -2147483648D;
@@ -283,7 +296,7 @@
             this.tbPort.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.tbPort.FillColor = System.Drawing.Color.White;
             this.tbPort.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.tbPort.Location = new System.Drawing.Point(187, 212);
+            this.tbPort.Location = new System.Drawing.Point(177, 212);
             this.tbPort.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbPort.Maximum = 2147483647D;
             this.tbPort.Minimum = -2147483648D;
@@ -296,7 +309,7 @@
             // 
             this.btnSitePath.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSitePath.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.btnSitePath.Location = new System.Drawing.Point(602, 33);
+            this.btnSitePath.Location = new System.Drawing.Point(570, 33);
             this.btnSitePath.Name = "btnSitePath";
             this.btnSitePath.Size = new System.Drawing.Size(47, 35);
             this.btnSitePath.TabIndex = 2;
@@ -308,7 +321,7 @@
             this.tbSitePath.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.tbSitePath.FillColor = System.Drawing.Color.White;
             this.tbSitePath.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.tbSitePath.Location = new System.Drawing.Point(187, 35);
+            this.tbSitePath.Location = new System.Drawing.Point(177, 35);
             this.tbSitePath.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tbSitePath.Maximum = 2147483647D;
             this.tbSitePath.Minimum = -2147483648D;
@@ -709,6 +722,7 @@
         private Sunny.UI.UIPanel uiPanel4;
         private Sunny.UI.UIGroupBox uiGroupBox1;
         private Sunny.UI.UIRichTextBox uiRichTextBox1;
+        private Sunny.UI.UIButton btnConfig;
     }
 }
 
