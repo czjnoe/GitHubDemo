@@ -143,7 +143,7 @@
             // 
             this.btnConfig.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnConfig.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.btnConfig.Location = new System.Drawing.Point(623, 33);
+            this.btnConfig.Location = new System.Drawing.Point(632, 33);
             this.btnConfig.Name = "btnConfig";
             this.btnConfig.Size = new System.Drawing.Size(164, 35);
             this.btnConfig.TabIndex = 16;
@@ -309,7 +309,7 @@
             // 
             this.btnSitePath.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSitePath.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.btnSitePath.Location = new System.Drawing.Point(570, 33);
+            this.btnSitePath.Location = new System.Drawing.Point(579, 33);
             this.btnSitePath.Name = "btnSitePath";
             this.btnSitePath.Size = new System.Drawing.Size(47, 35);
             this.btnSitePath.TabIndex = 2;
