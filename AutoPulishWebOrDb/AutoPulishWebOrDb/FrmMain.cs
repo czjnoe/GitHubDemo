@@ -262,11 +262,11 @@ namespace AutoPulishWebOrDb
                 this.ShowWarningDialog("服务器尚未安装IIS服务模块");
                 return;
             }
-            if (IISHelp.GetIISVersion() < 0)
-            {
-                this.ShowWarningDialog("没有安装 IIS 环境");
-                return;
-            }
+            //if (IISHelp.GetIISVersion() < 0)
+            //{
+            //    this.ShowWarningDialog("没有安装 IIS 环境");
+            //    return;
+            //}
             if (!NetFrameWorkHelp.IsExistNet40())
             {
                 this.ShowWarningDialog("没有 NET4.0 环境");

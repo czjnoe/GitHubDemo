@@ -58,7 +58,7 @@ namespace AutoPulishWebOrDb.Help
                 string strVersion = getEntity.Properties["MajorIISVersionNumber"].Value.ToString();
                 return Convert.ToInt32(strVersion);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return -1;
             }
