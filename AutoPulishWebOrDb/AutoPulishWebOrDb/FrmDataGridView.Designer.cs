@@ -53,6 +53,7 @@
             this.uiPanel1.Name = "uiPanel1";
             this.uiPanel1.Size = new System.Drawing.Size(800, 377);
             this.uiPanel1.TabIndex = 0;
+            this.uiPanel1.Text = null;
             // 
             // dgv_config
             // 
@@ -107,6 +108,7 @@
             this.uiPanel2.Name = "uiPanel2";
             this.uiPanel2.Size = new System.Drawing.Size(800, 68);
             this.uiPanel2.TabIndex = 1;
+            this.uiPanel2.Text = null;
             // 
             // btnSave
             // 
@@ -125,6 +127,7 @@
             this.key.FillWeight = 152.2843F;
             this.key.HeaderText = "key";
             this.key.Name = "key";
+            this.key.ReadOnly = true;
             this.key.Width = 150;
             // 
             // value
@@ -143,7 +146,7 @@
             this.Controls.Add(this.uiPanel2);
             this.Controls.Add(this.uiPanel1);
             this.Name = "FrmDataGridView";
-            this.Text = "FrmDataGridView";
+            this.Text = "修改";
             this.Load += new System.EventHandler(this.FrmDataGridView_Load);
             this.uiPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_config)).EndInit();
