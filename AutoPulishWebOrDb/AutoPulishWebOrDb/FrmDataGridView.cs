@@ -28,12 +28,20 @@ namespace AutoPulishWebOrDb
         public override void Init()
         {
             List<Config> list = new List<Config>();
-            var dic = ConfigUtil.GetAppSettingValues(_configPath);
-            foreach (string key in dic.Keys)
+            var appSettingDic = ConfigUtil.GetAppSettingValues(_configPath);
+            var connStringDic = ConfigUtil.GetConnectionStringSettings(_configPath);
+            foreach (string key in appSettingDic.Keys)
             {
                 Config config = new Config();
                 config.key = key;
-                config.value = dic[key];
+                config.value = appSettingDic[key];
+                list.Add(config);
+            }
+            foreach (var key in connStringDic.Keys)
+            {
+                Config config = new Config();
+                config.key = key;
+                config.value = connStringDic[key].ConnectionString;
                 list.Add(config);
             }
             this.dgv_config.DataSource = list;
@@ -58,7 +66,14 @@ namespace AutoPulishWebOrDb
                 {
                     var key = row.Cells["key"].Value?.ToString();
                     var value = row.Cells["value"].Value?.ToString();
-                    ConfigUtil.SetAppSettingValue(key, value, _configPath);
+                    if (ConfigUtil.GetAppSettingValue(key, configPath: _configPath).IsNullOrWhiteSpace())
+                    {
+                        ConfigUtil.SetConnectionString(key, value, null, configPath: _configPath);
+                    }
+                    else
+                    {
+                        ConfigUtil.SetAppSettingValue(key, value, _configPath);
+                     }
                 }
                 UIMessageTip.ShowOk("编辑成功", 2000, true);
             }

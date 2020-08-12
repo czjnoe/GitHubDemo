@@ -45,7 +45,7 @@ namespace AutoPulishWebOrDb.Help
         {
             var config = GetConfiguration(configPath);
             var appSetting = config.AppSettings.Settings[key];
-            return appSetting.Value;
+            return appSetting?.Value;
         }
 
 
@@ -205,9 +205,13 @@ namespace AutoPulishWebOrDb.Help
             var config = GetConfiguration(configPath);
             var connStrSettingDic = new Dictionary<string, ConnectionStringSettings>();
             var connStrSettings = ConfigurationManager.ConnectionStrings;
-            foreach (ConnectionStringSettings item in connStrSettings)
+            foreach (ConnectionStringSettings item in config.ConnectionStrings.ConnectionStrings)
             {
                 connStrSettingDic[item.Name] = item;
+            }
+            foreach (ConnectionStringSettings item in connStrSettings)
+            {
+                connStrSettingDic.Remove(item.Name);
             }
             return connStrSettingDic;
         }
